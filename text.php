@@ -1,6 +1,10 @@
 <?php
-$openid = $_POST['user_openid'];
-$sec_id = $_POST['sec_id'];
-	
-echo 1;
+$user_name = $_POST['user_name'];
+$openid = "12321321";
+$a = array(
+	"openid"  => $openid
+);
+
+echo json_encode($a);
+
 

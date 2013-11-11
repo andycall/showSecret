@@ -52,6 +52,7 @@ function postdata(url,data,callback){
         request.open('POST',url,true);
         request.addEventListener('readystatechange',function(){
             if(request.readyState === 4 && callback){
+                // throw request.responseText;
                   callback(JSON.parse(request.responseText));
             }
         },false);
@@ -104,17 +105,24 @@ function timeGetText(url,timeout,callback){
 }
 
 function getReply(reply){ //ajax发送请求的回复
-    if(!reply || reply === 0){
-        self.postMessage('failed');
+    if(reply.name){ //if the reply object have name
+        var temp = name;
+        name = reply.name
+        reply.temp = temp;
     }
-    else if(reply === 1){
-        self.postMessage('success');
-    }
+    reply.name = name;
+    self.postMessage(reply);
 }
+
+
+
+
 
 function dealData(){
     return function(e){
         var type = e.data.type;
+        name = e.data.name;
+        delete e.data.name;
         // throw JSON.stringify({data:type})
         if(typeof type !== "string") return false;
         switch(type){

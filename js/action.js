@@ -12,6 +12,39 @@ function $$(id){
 		return typeof id === 'string' ? document.getElementById(id) : id;
 }
 
+
+
+// 迭代器
+var each = (function(arr){
+	var index = 0;
+	return {
+		hasNext : function(){
+			return index < arr.length;
+		},
+		next : function(){
+			var element;
+			if(!this.hasNext()){
+				return null;
+			}
+			element = arr[index];
+			index ++;
+			return element;
+		}
+	}
+
+})();
+
+function getBroswer(){
+	var ua = navigator.userAgent.toLowerCase(),
+	_IE = ua.indexOf('msie') > -1 && ua.indexOf('opera') == -1,
+	_GECKO = ua.indexOf('gecko') > -1 && ua.indexOf('khtml') == -1,
+	_WEBKIT = ua.indexOf('applewebkit') > -1,
+	_OPERA = ua.indexOf('opera') > -1,
+	_MOBILE = ua.indexOf('mobile') > -1,
+	_IOS = /ipad|iphone|ipod/.test(ua);
+
+}
+
 var whenReady = (function(){
     var func = [];
     var ready = false;
@@ -161,7 +194,7 @@ function addListen(obj,type,handle){
 function changeSlider(index,elem){
 	var slider = document.getElementsByClassName('slider')[0];
 	var sliderWidth = window.getComputedStyle(slider).width;
-	console.log(sliderWidth);
+	// console.log(sliderWidth);
     slider.style.left = (parseInt(sliderWidth) * index)  + 'px';
 }
 
@@ -184,7 +217,7 @@ function getOpenId(){
 
 function findPraise(){
 	var allContent = getClass('click_praise');
-	console.log(allContent);
+	// console.log(allContent);
 	for(var i = 0,len = allContent.length; i < len ;i += 1){
 		if(parseInt(allContent[i].getAttribute('ispraied')) == 0){
 			allContent[i].innerHTML = "已赞";
@@ -194,121 +227,312 @@ function findPraise(){
 
 function getPrased(elem){  //点赞
 	return function(){
+		console.log(elem);
 		var articleId = elem.getAttribute('articleId');
 		var openid = getOpenId();
+		console.log(openid);
+		if(openid === ""){
+			firstLogin();
+		}
 		var data = {
 			user_openid : openid,
 			sec_id: articleId
 		};
-		if(sendAjax(data,"POST")){
-			console.log(elem);
+		sendAjax(data,"POST","admire")
+			// console.log(elem);
+		function admireState(){
+			return function(e){
+				if(e.data.state == 1){
+					elem.innerHTML = "已赞";
+				}
+				else{
+					alert('什么情况?? 评论失败。。 :(');
+				}
+			}
+		}
 			// writeCookie('PRASECHECK',articleId ,365);
-			elem.innerHTML = "已赞";
-		} //发送数据到worker
+		worker.addEventListener('message',admireState(),false)
+		//发送数据到worker
 		
 		// ..................
 	}
 }
-// function checkpraise(){
-// 	var click_praise = getClass('click_praise');
-// 	var isPrase = readCookie("PRASECHECK");
-// 	if(isPrase){
-// 		console.log(isPrase);
-// 		var articleId = isPrase.split('=')[1];
-// 		for(var i = 0,len = click_praise.length; i < len ; i += 1){
-// 			if(click_praise[i].getAttribute('articleId') === articleId){
-// 				click_praise[i].innerHTML = "已赞";
-// 		}
-// 	}
-// 	}
-// }
 
-// // 动态topbar
-// function getScroll(){
-// 	return function(){
-// 		var topbar = document.getElementsByClassName('header-bar')[0];
-// 		var swipe = document.getElementById('slider');
-// 		// console.log(swipe)
-// 		// console.log(document.body.scrollTop);	
-// 		if(document.body.scrollTop > 0 ){
-// 			topbar.style.position = "fixed";
-// 			topbar.style.top = "0px";
-// 			if(parseInt(window.getComputedStyle(topbar).height) - document.body.scrollTop > 0){
-// 				console.log(parseInt(window.getComputedStyle(topbar).height) - document.body.scrollTop);
-// 				swipe.style.marginTop = (parseInt(window.getComputedStyle(topbar).height) - document.body.scrollTop) + 'px';
-// 			} 
+
+
+
+function buttonClick(){
+	var messageButton = getClass("message-button")[0];
+	var userButton = getClass('user-button')[0];
+	var clickState = 0;
+	// messageButton.addEventListener('click',changeBack(),false);
+	// userButton.addEventListener('click',changeBack(),false);
+	// messageButton.addEventListener('click',function(e){
+	// 	toggle(messageButton,changeBack(),doubleClick());
+	// });
+	var toggle = function toggle(el){
+		// 每次点击进行切换
+		// console.log(el);
+		var funs = [].slice.call(arguments,1);
+		var state = [0,1];
+		if(funs.length > 2) return false;
+		if(clickState == 0){
+			clickState = 1;
+			// console.log(el);
+			// console.log('213');
+			funs[0].call(el);
+		}
+		else {
+			clickState = 0;
+			// console.log('123');
+			funs[1].call(el);
+			// console.trace();
+		}
+	// var backup = funs.concat();
+	// 	console.log(arguments);
+	// 	if(!funs.length)  return;
+	// 	// funs[0].call(el);
+	// 	// funs.shift();
+	// var eachBox = new each(funs);
+	}
+
+	userButton.addEventListener('click',function(e){
+		toggle(userButton,changeBack(),doubleClick());
+	});
+	// toggle(userButton,changeBack(),doubleClick());
+}
+
+function changeBack(){
+	return function(){
+		// console.log(this);
+		this.style.background = "#1e931e";
+		if(this.getAttribute('class') === "user-button"){
+			$$('user_select').style.display = 'block';
+		}
+	}
+}
+
+function doubleClick(){
+	return function(){
+		// console.log(this);
+		this.style.background = "#14ca14";
+		// console.log(this.getAttribute('class'));
+		if(this.getAttribute('class') === "user-button"){
+			// console.log('qwe');
+			$$('user_select').style.display = 'none';
+		}
+	}
+}
+
+function addWrapper(){
+	var frageMent = document.createDocumentFragment();
+	var div = document.createElement('div');
+	div.innerHTML = "helloworld";
+	frageMent.appendChild(div);
+	document.getElementsByClassName('swipe-wrap')[0].appendChild(frageMent);
+
+}
+
+
+function clearAllsection(){
+	// console.log('helloworld');
+	var container = $$('sectionSlider');
+	var sliders = container.children[0].children;
+	var length = sliders.length;
+	for(var i = 0 ; i < length; i += 1 ){
+		if(sliders[i].getAttribute('id') !== 'manBox'){
+			sliders[i].style.display = 'none';
+		}
+	}
+}
+
+
+
+
+function BackToMain(){
+	var goBack = getClass('goBack');
+	for(var i = 0, len = goBack.length; i < len ; i += 1){
+		goBack[i].addEventListener('click',goToBack(),false);
+	}	
+	function goToBack(){
+		return function(){
+				abc.ReturnBack();
+			setTimeout(function(){abc.kill()},250);
+		}
+	}
+}
+
+function secWhichShow(target){
+	var secMain = getClass('sec-main')[0];
+	var shows = secMain.children;
+	for(var i = 0,len = shows.length ; i < len ; i += 1  ){
+		if(i === target) continue;
+		shows[i].style.display = "none";
+	}
+}
+
+
+function addListenToButton(){
+	var secMain = getClass('sec-main')[0];
+	var divPos = secMain.children;
+
+	var message = getClass('message-button')[0];
+	var mySecret = getClass('mySecret')[0];
+	var myReply = getClass('myReply')[0];
+	message.addEventListener('click',checkWhichShow(),false);
+	mySecret.addEventListener('click',checkWhichShow(),false);
+	myReply.addEventListener('click',checkWhichShow(),false);	
+
+
+	function checkWhichShow(){
+		return function(){
+			console.log(this);
+			for(var i = 0,len = divPos.length ; i < len ; i += 1 ){
+				divPos[i].style.display = "none";
+			}
+
+			var loginInfo = readCookie('openid');
+			if(!loginInfo){
+				divPos[3].style.display = 'block';
+			}
+			else if(this.getAttribute('class') == 'message-button'){
+				console.log(divPos);
+				divPos[0].style.display = 'block';
+			}
+			else if(this.getAttribute('class') == 'mySecret'){
+				console.log(divPos[1]);
+				divPos[1].style.display = 'block';
+			}
+			else if(this.getAttribute('class') == 'myReply'){
+				divPos[2].style.display = "block";
+				this.style.display = 'block';
+			}
+			abc.setup();
+			setTimeout(function(){abc.next(),200});
+		}
+	}
+
+	
+}
+
+function CommitShow(){
+	var comments = getClass('comment-reply');
+	var commentBox = getClass('comment-box');
+	function sendComimtinfo(){
+		return function(){
+			var parent = this.parentNode;
+			var openid = $$('userId').getAttribute('openid');
+			var articleId = parent.getAttribute('articleId');
+			var commentValue = $$('comment_input_box').innerHTML.toString();
+			console.log(commentValue);
+			var data = {
+				user_openid : openid,
+				sec_id: articleId,
+				content: commentValue
+			};
+			console.log(data);
+
+			sendAjax(data,"POST","commitShow");
 			
-// 		}
-// 		else{
-// 			topbar.style.position = 'static';
-// 			swipe.style.marginTop = 0;
-// 		}
-// 	}
-// }
-// window.addEventListener('scroll',getScroll(),false);
+			function getMessage(){
+				return function(e){
+					if(typeof  e.data.name === 'string' &&(e.data.name === "commitShow" || e.data.temp === "commitShow")){
+						console.log('123');
+						var frage = document.createDocumentFragment();
+						var p = document.createElement('p');
+						var name = document.createElement('span');
+						name.style.marginLeft = '40px';
+						name.setAttribute('class','comment-user');
+						name.innerHTML = e.data.name;
+
+						var point = document.createElement('span');
+						point.innerHTML = "：";
+						var text = document.createTextNode(commentValue);
+						p.appendChild(name);
+						p.appendChild(point);
+						p.appendChild(text);
+						frage.appendChild(p);
+						parent.appendChild(frage);
+					}
+				}
+			}
 
 
-// 点赞
-// 事件队列1
-// function step1(){
-// 	var click_praise = getClass('click_praise');
-// 	for(var i = 0, len = click_praise.length; i< len ;  i += 1 ){
-// 		click_praise[i].addEventListener('click',praise(),false);
-// 	}
-// }
+			parent.removeChild(this);
+			parent.removeChild($$('comment_input_box'));
+			
+			worker.addEventListener('message',getMessage(),false);
+		}
+	}
+	function showClickBox(){
+		return function(){
+			console.log('click');
+			if(!$$('comment_input_box')){
+				var fragment =  document.createDocumentFragment();
+				var inputbox = document.createElement('div');
+				inputbox.setAttribute('class','type-your-reply');
+				inputbox.setAttribute('contenteditable','true');
+				inputbox.setAttribute('id','comment_input_box');
+				fragment.appendChild(inputbox);
 
-// whenReady(step1); //队列第一步
+				var submit = document.createElement('div');
+				submit.innerHTML = "发表";
+				submit.setAttribute('class','comment-button');
+				submit.setAttribute('id','commit_submit');
+				submit.addEventListener('click',sendComimtinfo(),false);
+				fragment.appendChild(submit);
+
+				this.parentNode.parentNode.appendChild(fragment);
+			}
+		}
+	}
+	for(var i = 0 , len = comments.length; i < len; i += 1 ){
+		comments[i].addEventListener('click',showClickBox(),false);
+	}
+}
+
+
+// 首次登陆
+function firstLogin(){
+	var nowId = readCookie('openid');
+	if(nowId){
+		$$('userId').setAttribute('openid',nowId);
+	}
+	else{
+		var name_submit = $$('name_submit');
+		name_submit.addEventListener('click',function(){
+			var user_names = $$('user_name').innerHTML;
+			var data = {
+				user_name : user_names
+			}
+			sendAjax(data,"POST","firstLogin");
+		},false);
+		function addopenid(){
+			return function(e){
+				if(e.data.name){
+					var openid = e.data.openid;
+					$$('userId').setAttribute('openid',openid);
+					writeCookie('openid',openid,365);
+					abc.ReturnBack();
+				}		
+			}
+		}
+		worker.addEventListener('message',addopenid(),false);
+	}
+}
+
+
+
+// whenReady(addWrapper);
+whenReady(firstLogin);
+whenReady(clearAllsection);
 whenReady(findPraise);
 whenReady(addListenToContent);
-
-
-
-
-
-
-
-
-//if(!Element.prototype.click){
-//	Element.prototype.click = function(handle){
-//		console.log('123');
-//		return function(obj){
-//			addListen(obj,'click',handle);
-//		}
-//	}
-//}
-
-
-//if(!Element.prototyp){
-//    Element.prototype.hello = function(){
-//        console.log(this);
-//    }
-//}
-
-
-
-
-//if(Object.defineProperty){
-//    Object.defineProperty(Element.prototype,'click',{
-//        get: function(){
-//            alert('455');
-//        },
-//        set: function(){
-//           alert('123');
-////           return function(obj){
-////               addListen(obj,'click',handle);
-////           }
-//       },
-//       enumerable: false,
-//       configurable: true
-//    })
-//}
-
-// addListen($$('click-comment'),'click',function(){
-// 	alert('123');
-// });
-
-
-
-
+whenReady(buttonClick);
+// whenReady(changeSec);
+whenReady(BackToMain);
+whenReady(addListenToButton);
+whenReady(CommitShow);
+// whenReady(killSlider);
 
 

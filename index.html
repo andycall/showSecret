@@ -7,242 +7,365 @@
 	<link rel="stylesheet" href="css/abc.css">
 </head>
 <body>
-<div class="header-bar">
-	<div class="top-fixed-inner">
-		<div class="top-fixed-container">
-				<div class="top-bar clearfix">
-					<div style="display:none;" id="userId" openId="123456"></div> <!--     当前用户的openid           -->
-					<div class="top-logo">
-						<img src="IMAGE/logo.png" />
-					</div>
-					<div class="right-button">
-						<div class="message-button">
-							<img src="IMAGE/message.png" />
-						</div>
-						<div class="user-button">
-							<img src="IMAGE/user.png">
-						</div>
-					</div>
+<div id="sectionSlider" class="">
+	<div class="sectionSlider-wrap">
+		<!-- 详细页面 -->
+		<div class="inforBox">
+			<div class="top-bar top-bar-sec">
+				<div class="sec-logo">
+					<img src="image/logo.png" />
 				</div>
-				<div class="slide-state clearfix" id="slide-state">
-					<ul class="clearfix">
-						<li>最热</li>
-						<li>最新</li>
-						<li>手气不错</li>
-					</ul>
-					<div class="move-slider-container">
-						<div class="slider animate"></div>
-					</div>
-				</div>
-		</div>
-		
-	</div>
-</div>	
-
-
-<div id='slider' class='swipe'>
-	<div class='swipe-wrap'>
-		<!-- 第一个板块： 即最热 -->
-		<div class="wrapper allpag">
-			<div class="content-messager"> <!-- 评论内容框 -->
-				<div class="message-section message-default message-wrapper">
-					<div class="header-wrapper clearfix">
-						<div class="header-name">
-							<p class="name" >AndyCALL<span> : </span></p> 
-							<p class="time">2013-11-11</p>
-						</div>
-					</div>
-					<div class="main-message">
-						这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试
-					</div>
-					<div class="praise-comment clearfix">
-						<div class="comment">
-							<img src="image/comment_add.png">
-							<span class="click-comment" articleId="">评论</span><!--  被评论者的articleId   -->
-						</div>
-						<div class="praise">
-							<img src="image/hand_thumbsup.png">
-							<span class="click_praise" articleId="" ispraied="0">赞</span> <!--  被评论者的articleId   -->
-						</div>
-					</div>
-					<div class="show-comment">
-						<span class="comment-statement"><i class="comment-count">4</i>人觉得很赞</span>
-					</div>	
-				</div>
-			</div>
-			<div class="content-messager"> <!-- 评论内容框 -->
-				<div class="message-section message-default message-wrapper">
-					<div class="header-wrapper clearfix">
-						<div class="header-name">
-							<p class="name" >AndyCALL<span> : </span></p> 
-							<p class="time">2013-11-11</p>
-						</div>
-					</div>
-					<div class="main-message">
-						这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试
-					</div>
-					<div class="praise-comment clearfix">
-						<div class="comment">
-							<img src="image/comment_add.png">
-							<span class="click-comment" articleId="">评论</span><!--  被评论者的articleId   -->
-						</div>
-						<div class="praise">
-							<img src="image/hand_thumbsup.png">
-							<span class="click_praise" articleId="" ispraied="0">赞</span> <!--  被评论者的articleId   -->
-						</div>
-					</div>
-					<div class="show-comment">
-						<span class="comment-statement"><i class="comment-count">4</i>人觉得很赞</span>
-					</div>	
-				</div>
-			</div>
-			<div class="content-messager"> <!-- 评论内容框 -->
-				<div class="message-section message-default message-wrapper">
-					<div class="header-wrapper clearfix">
-						<div class="header-name">
-							<p class="name" >AndyCALL<span> : </span></p> 
-							<p class="time">2013-11-11</p>
-						</div>
-					</div>
-					<div class="main-message">
-						这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试
-					</div>
-					<div class="praise-comment clearfix">
-						<div class="comment">
-							<img src="image/comment_add.png">
-							<span class="click-comment" articleId="">评论</span><!--  被评论者的articleId   -->
-						</div>
-						<div class="praise">
-							<img src="image/hand_thumbsup.png">
-							<span class="click_praise" articleId="">赞</span> <!--  被评论者的articleId   -->
-						</div>
-					</div>
-					<div class="show-comment">
-						<span class="comment-statement"><i class="comment-count">4</i>人觉得很赞</span>
-					</div>	
-				</div>
-			</div>
-			<div class="content-messager"> <!-- 评论内容框 -->
-				<div class="message-section message-default message-wrapper">
-					<div class="header-wrapper clearfix">
-						<div class="header-name">
-							<p class="name" >AndyCALL<span> : </span></p> 
-							<p class="time">2013-11-11</p>
-						</div>
-					</div>
-					<div class="main-message">
-						这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试
-					</div>
-					<div class="praise-comment clearfix">
-						<div class="comment">
-							<img src="image/comment_add.png">
-							<span class="click-comment" articleId="">评论</span><!--  被评论者的articleId   -->
-						</div>
-						<div class="praise">
-							<img src="image/hand_thumbsup.png">
-							<span class="click_praise" articleId="">赞</span> <!--  被评论者的articleId   -->
-						</div>
-					</div>
-					<div class="show-comment">
-						<span class="comment-statement"><i class="comment-count">4</i>人觉得很赞</span>
-					</div>	
+				<div class="goBack goRight">
+					<p>返回</p>
+					<div class="backTriagle_right"></div>
 				</div>
 			</div>
 		</div>
-		<!-- 第二个板块： 即最新 -->
-		<div class="wrapper allpag">
-			<!-- 评论内容框 -->
-			<div class="content-messager">
-				<div class="message-section message-default message-wrapper">
-					<div class="header-wrapper clearfix">
-						<div class="header-name">
-							<p class="name" >AndyCALL<span> : </span></p> 
-							<p class="time">2013-11-11</p>
+		<!-- 主页面 -->
+		<div class="manBox" id="manBox">
+			<!-- 顶部栏 -->
+			<div class="header-bar">
+				<div class="top-fixed-inner">
+					<div class="top-fixed-container">
+						<div class="top-fixed-wrapper">
+							<div class="top-bar top-bar-main clearfix">
+								<div style="display:none;" id="userId" openId=""></div> <!--     当前用户的openid           -->
+								<div class="top-logo clearfix">
+									<img src="image/logo.png" />
+								</div>
+								<div class="right-button">
+										<div class="message-button">
+											<img src="image/message.png" />
+										</div>
+										<div class="user-button">
+											<img src="image/user.png">	
+											<ul id="user_select" style="display:none;">
+												<li class="show-list">
+													<div class="show-list-wrapper">
+														<div class="trangle"></div>
+														<div class="list-content">
+															<p class="mySecret">我发表的秘密</p>
+															<p class="myReply">我回复的秘密</p>
+														</div>
+													</div>
+												</li>
+											</ul>
+										</div>
+								</div>
+							</div>
+							<div class="slide-state clearfix" id="slide-state">
+								<ul class="clearfix">
+									<li>最热</li>
+									<li>最新</li>
+									<li>手气不错</li>
+								</ul>
+								<div class="move-slider-container">
+									<div class="slider animate"></div>
+								</div>
+							</div>
 						</div>
 					</div>
-					<div class="main-message">
-						这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试
-					</div>
-					<div class="praise-comment clearfix">
-						<div class="comment">
-							<img src="image/comment_add.png">
-							<span class="click-comment" articleId="">评论</span><!--  被评论者的articleId   -->
+					
+				</div>
+			</div>
+			<!-- 滑动块 -->
+			<div id='slider' class='swipe'>
+				<div class='swipe-wrap'>
+					<!-- 第一个板块： 即最热 -->
+					<div class="wrapper allpag">
+						<div class="content-messager"> <!-- 评论内容框 -->
+							<div class="message-section message-default message-wrapper">
+								<div class="header-wrapper clearfix">
+									<div class="header-name">
+										<p class="name" >AndyCALL<span> : </span></p> 
+										<p class="time">2013-11-11</p>
+									</div>
+								</div>
+								<div class="main-message">
+									这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试
+								</div>
+								<div class="praise-comment clearfix">
+									<div class="comment">
+										<img src="image/comment_add.png">
+										<span class="click-comment" articleId="123">评论</span><!--  被评论者的articleId  123 -->
+									</div>
+									<div class="praise">
+										<img src="image/hand_thumbsup.png">
+										<span class="click_praise" articleId="123" ispraied="0">赞</span> <!--  被评论者的articleId  123 -->
+									</div>
+									<!-- 孟睿玲 -->
+								</div>
+								<div class="show-comment">
+									<span class="comment-statement"><i class="comment-count">4</i>人觉得很赞</span>
+								</div>	
+							</div>
 						</div>
-						<div class="praise">
-							<img src="image/hand_thumbsup.png">
-							<span class="click_praise" articleId="">赞</span> <!--  被评论者的articleId   -->
+						<div class="content-messager"> <!-- 评论内容框 -->
+							<div class="message-section message-default message-wrapper">
+								<div class="header-wrapper clearfix">
+									<div class="header-name">
+										<p class="name" >AndyCALL<span> : </span></p> 
+										<p class="time">2013-11-11</p>
+									</div>
+								</div>
+								<div class="main-message">
+									这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试
+								</div>
+								<div class="praise-comment clearfix">
+									<div class="comment">
+										<img src="image/comment_add.png">
+										<span class="click-comment" articleId="123">评论</span><!--  被评论者的articleId  123 -->
+									</div>
+									<div class="praise">
+										<img src="image/hand_thumbsup.png">
+										<span class="click_praise" articleId="123" ispraied="0">赞</span> <!--  被评论者的articleId  123 -->
+									</div>
+								</div>
+								<div class="show-comment">
+									<span class="comment-statement"><i class="comment-count">4</i>人觉得很赞</span>
+								</div>	
+							</div>
+						</div>
+						<div class="content-messager"> <!-- 评论内容框 -->
+							<div class="message-section message-default message-wrapper">
+								<div class="header-wrapper clearfix">
+									<div class="header-name">
+										<p class="name" >AndyCALL<span> : </span></p> 
+										<p class="time">2013-11-11</p>
+									</div>
+								</div>
+								<div class="main-message">
+									这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试
+								</div>
+								<div class="praise-comment clearfix">
+									<div class="comment">
+										<img src="image/comment_add.png">
+										<span class="click-comment" articleId="123">评论</span><!--  被评论者的articleId  123 -->
+									</div>
+									<div class="praise">
+										<img src="image/hand_thumbsup.png">
+										<span class="click_praise" articleId="123">赞</span> <!--  被评论者的articleId  123 -->
+									</div>
+								</div>
+								<div class="show-comment">
+									<span class="comment-statement"><i class="comment-count">4</i>人觉得很赞</span>
+								</div>	
+							</div>
+						</div>
+						<div class="content-messager"> <!-- 评论内容框 -->
+							<div class="message-section message-default message-wrapper">
+								<div class="header-wrapper clearfix">
+									<div class="header-name">
+										<p class="name" >AndyCALL<span> : </span></p> 
+										<p class="time">2013-11-11</p>
+									</div>
+								</div>
+								<div class="main-message">
+									这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试
+								</div>
+								<div class="praise-comment clearfix">
+									<div class="comment">
+										<img src="image/comment_add.png">
+										<span class="click-comment" articleId="123">评论</span><!--  被评论者的articleId  123 -->
+									</div>
+									<div class="praise">
+										<img src="image/hand_thumbsup.png">
+										<span class="click_praise" articleId="123">赞</span> <!--  被评论者的articleId  123 -->
+									</div>
+								</div>
+								<div class="show-comment">
+									<span class="comment-statement"><i class="comment-count">4</i>人觉得很赞</span>
+								</div>	
+							</div>
 						</div>
 					</div>
-					<div class="show-comment">
-						<span class="comment-statement"><i class="comment-count">4</i>人觉得很赞</span>
+					<!-- 第二个板块： 即最新 -->
+					<div class="wrapper allpag">
+						<!-- 评论内容框 -->
+						<div class="content-messager">
+							<div class="message-section message-default message-wrapper">
+								<div class="header-wrapper clearfix">
+									<div class="header-name">
+										<p class="name" >AndyCALL<span> : </span></p> 
+										<p class="time">2013-11-11</p>
+									</div>
+								</div>
+								<div class="main-message">
+									这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试
+								</div>
+								<div class="praise-comment clearfix">
+									<div class="comment">
+										<img src="image/comment_add.png">
+										<span class="click-comment" articleId="123">评论</span><!--  被评论者的articleId  123 -->
+									</div>
+									<div class="praise">
+										<img src="image/hand_thumbsup.png">
+										<span class="click_praise" articleId="123">赞</span> <!--  被评论者的articleId  123 -->
+									</div>
+								</div>
+								<div class="show-comment">
+									<span class="comment-statement"><i class="comment-count">4</i>人觉得很赞</span>
+								</div>	
+							</div>
+						</div>
+					</div>
+					<!-- 第三个板块： 即手气不错 -->
+					<div class="wrapper allpag">
+						<div class="content-messager">   <!-- 评论内容框 -->
+							<div class="message-section message-default message-wrapper">
+								<div class="header-wrapper clearfix">
+									<div class="header-name">
+										<p class="name" >AndyCALL<span> : </span></p> 
+										<p class="time">2013-11-11</p>
+									</div>
+								</div>
+								<div class="main-message">
+									这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试
+								</div>
+								<div class="praise-comment clearfix">
+									<div class="comment">
+										<img src="image/comment_add.png">
+										<span class="click-comment" articleId="123">评论</span><!--  被评论者的articleId  123 -->
+									</div>
+									<div class="praise">
+										<img src="image/hand_thumbsup.png">
+										<span class="click_praise" articleId="123">赞</span> <!--  被评论者的articleId  123 -->
+									</div>
+								</div>
+								<div class="show-comment">
+									<span class="comment-statement"><i class="comment-count">4</i>人觉得很赞</span>
+								</div>	
+							</div>
+						</div>
+						<div class="content-messager">
+							<div class="message-section message-default message-wrapper">
+								<div class="header-wrapper clearfix">
+									<div class="header-name">
+										<p class="name" >AndyCALL<span> : </span></p> 
+										<p class="time">2013-11-11</p>
+									</div>
+								</div>
+								<div class="main-message">
+									这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试
+								</div>
+								<div class="praise-comment clearfix">
+									<div class="comment">
+										<img src="image/comment_add.png">
+										<span class="click-comment" articleId="123">评论</span><!--  被评论者的articleId  123 -->
+									</div>
+									<div class="praise">
+										<img src="image/hand_thumbsup.png">
+										<span class="click_praise" articleId="123">赞</span> <!--  被评论者的articleId  123 -->
+									</div>
+								</div>
+								<div class="show-comment">
+									<span class="comment-statement"><i class="comment-count">4</i>人觉得很赞</span>
+								</div>	
+							</div>
+						</div>
 					</div>	
 				</div>
 			</div>
 		</div>
-		<!-- 第三个板块： 即手气不错 -->
-		<div class="wrapper allpag">
-			<div class="content-messager">   <!-- 评论内容框 -->
-				<div class="message-section message-default message-wrapper">
-					<div class="header-wrapper clearfix">
-						<div class="header-name">
-							<p class="name" >AndyCALL<span> : </span></p> 
-							<p class="time">2013-11-11</p>
-						</div>
-					</div>
-					<div class="main-message">
-						这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试
-					</div>
-					<div class="praise-comment clearfix">
-						<div class="comment">
-							<img src="image/comment_add.png">
-							<span class="click-comment" articleId="">评论</span><!--  被评论者的articleId   -->
-						</div>
-						<div class="praise">
-							<img src="image/hand_thumbsup.png">
-							<span class="click_praise" articleId="">赞</span> <!--  被评论者的articleId   -->
-						</div>
-					</div>
-					<div class="show-comment">
-						<span class="comment-statement"><i class="comment-count">4</i>人觉得很赞</span>
-					</div>	
+		<!-- 发评论页面 -->
+		<div class="text" id="secBox">
+			<div class="top-bar top-bar-sec">
+				<div class="goBack goLeft">
+					<div class="backTriagle"></div>
+					<p>返回</p>
+				</div>
+				<div class="sec-logo">
+					<img src="image/logo.png" />
 				</div>
 			</div>
-			<div class="content-messager">
-				<div class="message-section message-default message-wrapper">
-					<div class="header-wrapper clearfix">
-						<div class="header-name">
-							<p class="name" >AndyCALL<span> : </span></p> 
-							<p class="time">2013-11-11</p>
-						</div>
+			<div class="sec-main">
+				<!-- 我要晒秘密 -->
+				<div class="PUBLISH_SECRET" style="display:none">
+					<p>我要晒的秘密：</p>
+					<textarea name="" id=""></textarea>
+					<div class="noName clearfix">
+						<button>发布</button>
+						<label for="isNamed"> 匿名发布</label>
+						<input type="checkbox" id="isNamed">
 					</div>
-					<div class="main-message">
-						这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试
-					</div>
-					<div class="praise-comment clearfix">
-						<div class="comment">
-							<img src="image/comment_add.png">
-							<span class="click-comment" articleId="">评论</span><!--  被评论者的articleId   -->
-						</div>
-						<div class="praise">
-							<img src="image/hand_thumbsup.png">
-							<span class="click_praise" articleId="">赞</span> <!--  被评论者的articleId   -->
-						</div>
-					</div>
-					<div class="show-comment">
-						<span class="comment-statement"><i class="comment-count">4</i>人觉得很赞</span>
-					</div>	
 				</div>
+				<!-- 我发布的秘密 -->
+				<div class="GET_COMMIT">
+					<p>我发表的秘密</p>
+					<div style="width:100%;height:0;border-bottom:1px solid #d2d2d2"></div>
+						<div class="content-messager"> <!-- 评论内容框 -->
+							<div class="message-section message-default message-wrapper">
+								<div class="header-wrapper clearfix">
+									<div class="header-name">
+										<p class="name" >AndyCALL<span> : </span></p> 
+										<p class="time">2013-11-11</p>
+									</div>
+								</div>
+								<div class="main-message">
+									这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试
+								</div>
+								<div class="praise-comment clearfix">
+									<div class="praise">
+										<img src="image/hand_thumbsup.png">
+										<span class="click_praise" articleId="123" ispraied="0">赞</span> <!--  被评论者的articleId  123 -->
+									</div>
+									<!-- 孟睿玲 -->
+								</div>
+								<div class="show-comment">
+									<span class="comment-statement"><i class="comment-count">4</i>人觉得很赞</span>
+								</div>
+								<div class="comment-box clearfix" articleId="1231231233">
+									<div class="comment-wrapper clearfix">  <!-- 这里还要填articleid -123->
+										<p>	
+											<span class="comment-user">DTC</span><span>：</span>这是测试，这是测试，这是测试，这是测试，这是测试
+										</p>
+										<p class="comment-reply">回复</p>
+									</div>
+									<!-- <div class="type-your-reply" contenteditable="true"  id="comment_input_box"></div>
+									<div class="comment-button" id="commit_submit">发表</div> -->
+								</div>
+							</div>
+						</div>
+					
+				</div>
+				<!-- 我回复的 -->
+				<div class="MY_REPLY" style="display:none">
+					<p>我回复的秘密</p>
+					<div style="width:100%;height:0;border-bottom:1px solid #d2d2d2"></div>
+					<div class="MY_REPLY_container">
+						<p class="clearfix">
+							<span class="REPLY-content">
+								<span>DTC</span>  : 这是测试， 这是测试， 这是测试.这是测试， 这是测试， 这是测试.这是测试， 这是测试， 这是测试.这是测试， 这是测试， 这是测试.这是测试， 这是测试， 这是测试.这是测试， 这是测试， 这是测试.
+							</span>
+							<span class="REPLY-delete" title="删除"></span>
+						</p>
+						<p>
+							<span>
+								<span>我： </span>lalallalalaasljdlksajdlksajdlksajdlksajdlksajdlksajdlkjsad
+							</span>
+						</p>
+					</div>
+				</div>
+				<!-- 我的昵称 -->
+				<div class="MY_NAME" style="display:none">
+					<p class="MY_NAME_name">输入昵称</p>
+					<div type="text" id="user_name" contenteditable="true" ></div>
+					<button id="name_submit">确定</button>
+					<p>(Tips： 初次登陆时请输入您的昵称与微信号绑定，昵称确认后就不能修改了哦。:) </p>
+				</div>
+				<!-- 回复秘密 -->
+					
 			</div>
 		</div>
-		
 	</div>
 </div>
- <button id="left">left</button>
-	 <button id="right">right</button>
+		<button id="left">left</button>
+			<button id="right">right</button>
 </body>
 <script type="text/javascript" src="js/slider.js"></script>
-<script type="text/javascript" src="js/action.js"></script>
 <script type="text/javascript" src="js/worker.js"></script>
+<script type="text/javascript" src="js/action.js"></script>
+<script type="text/javascript" src="js/sectionSlider.js"></script>
 <script type="text/javascript">
 
 window.mySlider = new Slider(document.getElementById('slider'), {
@@ -257,10 +380,12 @@ window.mySlider = new Slider(document.getElementById('slider'), {
   	changeHeight(index,elem);
   },
   transitionEnd: function(index, elem) {
-  	
+
   }
 });
 
+
+window.abc = new sectionSlider(document.getElementById('sectionSlider'));
 
 document.getElementById('right').onclick = function(){
 	mySlider.next();
@@ -268,6 +393,10 @@ document.getElementById('right').onclick = function(){
 document.getElementById('left').onclick = function(){
 	mySlider.prev();
 }
+
+
+
+
 
 </script>
 </html>

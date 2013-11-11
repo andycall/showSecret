@@ -7,23 +7,11 @@
  */
 var worker = new Worker('js/ajax.js');
 var isPraise = true;
-worker.addEventListener('message',getResponse(),false);
 
-function sendAjax(data,type,elem){
+function sendAjax(data,type,name){
 	data.type = type;
-	// console.log(data);
+	data.name = name;
+	console.log(data);
 	worker.postMessage(data);//发送json对象到work
 	return isPraise;
-}
-
-function getResponse(){
-	return function(e){
-		if(e.data === 'failed'){
-			alert('发送失败。= = 。。');
-			isPraise = false;
-		}
-		else if(e.data === "success"){
-			isPraise = true;
-		}
-	}
 }
