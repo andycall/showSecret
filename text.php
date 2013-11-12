@@ -1,8 +1,14 @@
 <?php
-$user_name = $_POST['user_name'];
-$openid = "12321321";
+if(isset($_POST['openid'])){
+	$openid = $_POST['openid'];
+}
+else{
+	$openid = 1123;
+}
 $a = array(
-	"openid"  => $openid
+	"name"  => 123213,
+	"state" => 1,
+	"openid" => $openid
 );
 
 echo json_encode($a);

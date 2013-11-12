@@ -4,7 +4,7 @@ AJAX篇
 
 点赞也得返回个数据格式。。。
 $a = array(
-     "state" => 0
+     "state" => 1//成功
 );
 echo json_encode($a);
 
@@ -35,6 +35,24 @@ $a = array(
 	"name"  => $name
 );
 echo json_encode($a);
+
+
+
+点击首页最右边的那个绿绿的按钮后发表秘密
+发送数据格式:
+var data = {
+				user_openid : openid, // 用户的openid
+				secret_conent : secretContent.innerHTML, //发送文章的内容
+				isNamed : isNamed.checked // 是否匿名
+			};
+
+返回内容：
+$a = array(
+	"name" => "DTC",//用户姓名
+	"state"  => 1 //成功
+);
+echo json_encode($a);
+
 
 
 

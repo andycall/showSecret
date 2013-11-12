@@ -7,7 +7,6 @@
  */
 
 
-
 function $$(id){
 		return typeof id === 'string' ? document.getElementById(id) : id;
 }
@@ -242,8 +241,10 @@ function getPrased(elem){  //点赞
 			// console.log(elem);
 		function admireState(){
 			return function(e){
-				if(e.data.state == 1){
-					elem.innerHTML = "已赞";
+				if(e.data.SECRET === 'admire'){
+					if(e.data.state == 1){
+						elem.innerHTML = "已赞";
+					}
 				}
 				else{
 					alert('什么情况?? 评论失败。。 :(');
@@ -372,17 +373,31 @@ function secWhichShow(target){
 }
 
 
+function checkIfLogin(){
+	return  $$('openid').getAttribute('openid') != "";
+}
+
 function addListenToButton(){
 	var secMain = getClass('sec-main')[0];
 	var divPos = secMain.children;
-
+	var click_comment = getClass('click-comment');
 	var message = getClass('message-button')[0];
 	var mySecret = getClass('mySecret')[0];
 	var myReply = getClass('myReply')[0];
 	message.addEventListener('click',checkWhichShow(),false);
 	mySecret.addEventListener('click',checkWhichShow(),false);
 	myReply.addEventListener('click',checkWhichShow(),false);	
+	for(var i = 0 , len = click_comment.length ; i < len; i += 1){
+			click_comment[i].addEventListener('click',click_swap(),false);
+	}
 
+	function click_swap(){
+		return function(){
+			if(checkIfLogin()){
+				divPos[3].style.display = 'none';
+			}
+		}
+	}
 
 	function checkWhichShow(){
 		return function(){
@@ -393,6 +408,7 @@ function addListenToButton(){
 
 			var loginInfo = readCookie('openid');
 			if(!loginInfo){
+				console.log(divPos);
 				divPos[3].style.display = 'block';
 			}
 			else if(this.getAttribute('class') == 'message-button'){
@@ -436,7 +452,7 @@ function CommitShow(){
 			
 			function getMessage(){
 				return function(e){
-					if(typeof  e.data.name === 'string' &&(e.data.name === "commitShow" || e.data.temp === "commitShow")){
+					if(e.data.SECRET == 'commitShow'){
 						console.log('123');
 						var frage = document.createDocumentFragment();
 						var p = document.createElement('p');
@@ -509,16 +525,65 @@ function firstLogin(){
 		},false);
 		function addopenid(){
 			return function(e){
-				if(e.data.name){
+				if(e.data.SECRET == 'firstLogin'){
 					var openid = e.data.openid;
 					$$('userId').setAttribute('openid',openid);
 					writeCookie('openid',openid,365);
 					abc.ReturnBack();
+				setTimeout(function(){abc.kill()},250);
 				}		
 			}
 		}
 		worker.addEventListener('message',addopenid(),false);
 	}
+}
+
+
+
+
+function publishSecret(){
+	var Secret_publish = $$('Secret_publish');
+	var secretContent = $$('secret_content');
+	var isNamed = $$('isNamed');
+
+	function sendSecret(){
+		return function(){
+			if(secretContent.innerHTML == "") return false;
+			var openid = $$('userId').getAttribute('openid');
+			var data = {
+				user_openid : openid,
+				secret_conent : secretContent.innerHTML,
+				isNamed : isNamed.checked
+			};
+
+			sendAjax(data,"POST",'publish');
+		}
+	}
+	function afterSend(){
+		return function(e){
+			console.log(e);
+			if(e.data.SECRET == 'publish'){
+				abc.ReturnBack();
+				setTimeout(function(){abc.kill()},250);
+				if(e.data.state == '1'){
+					var userName = e.data.name;
+					var date = new Date();
+					var divWrapper = document.createElement('div');
+					divWrapper.setAttribute('class','message-section message-default message-wrapper');
+					divWrapper.innerHTML = "<div class='header-wrapper clearfix'><div class='header-name'><p class='name' >" + userName +"<span> : </span></p><p class='time'>" + date.getFullYear() + '-' + date.getMonth() +'-' + date.getDate() + "</p></div></div><div class='main-message'>这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试</div><div class='praise-comment clearfix'><div class='comment'><img src='image/comment_add.png'><span class='click-comment' articleId='123'>评论</span><!--  被评论者的articleId  123 --></div><div class='praise'><img src='image/hand_thumbsup.png'><span class='click_praise' articleId='123' ispraied='0'>赞</span> <!--  被评论者的articleId  123 --></div></div><div class='show-comment'><span class='comment-statement'><i class='comment-count'>4</i>人觉得很赞</span></div>";
+					console.log(getClass('wrapper')[1]);
+					console.log(divWrapper);
+					getClass('wrapper')[1].children[0].insertBefore(divWrapper);
+					// changeHeight(1,getClass('wrapper')[1]);
+				}
+			}
+			else{
+				return false;
+			}
+		}
+	}
+	Secret_publish.addEventListener('click',sendSecret(),false);
+	worker.addEventListener('message',afterSend(),false);
 }
 
 
@@ -533,6 +598,7 @@ whenReady(buttonClick);
 whenReady(BackToMain);
 whenReady(addListenToButton);
 whenReady(CommitShow);
+whenReady(publishSecret);
 // whenReady(killSlider);
 
 

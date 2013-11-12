@@ -8,9 +8,9 @@
 var worker = new Worker('js/ajax.js');
 var isPraise = true;
 
-function sendAjax(data,type,name){
+function sendAjax(data,type,scret){
 	data.type = type;
-	data.name = name;
+	data.SECRET = scret;
 	console.log(data);
 	worker.postMessage(data);//发送json对象到work
 	return isPraise;

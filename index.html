@@ -263,6 +263,9 @@
 								</div>	
 							</div>
 						</div>
+						<div class="refresh_again">
+							
+						</div>
 					</div>	
 				</div>
 			</div>
@@ -282,15 +285,15 @@
 				<!-- 我要晒秘密 -->
 				<div class="PUBLISH_SECRET" style="display:none">
 					<p>我要晒的秘密：</p>
-					<textarea name="" id=""></textarea>
+					<div class="secert-content" contenteditable="true" id="secret_content"></div>
 					<div class="noName clearfix">
-						<button>发布</button>
+						<button id="Secret_publish">发布</button>
 						<label for="isNamed"> 匿名发布</label>
 						<input type="checkbox" id="isNamed">
 					</div>
 				</div>
 				<!-- 我发布的秘密 -->
-				<div class="GET_COMMIT">
+				<div class="GET_COMMIT" style="display:none">
 					<p>我发表的秘密</p>
 					<div style="width:100%;height:0;border-bottom:1px solid #d2d2d2"></div>
 						<div class="content-messager"> <!-- 评论内容框 -->
@@ -315,13 +318,13 @@
 									<span class="comment-statement"><i class="comment-count">4</i>人觉得很赞</span>
 								</div>
 								<div class="comment-box clearfix" articleId="1231231233">
-									<div class="comment-wrapper clearfix">  <!-- 这里还要填articleid -123->
+									<div class="comment-wrapper clearfix">  
 										<p>	
 											<span class="comment-user">DTC</span><span>：</span>这是测试，这是测试，这是测试，这是测试，这是测试
 										</p>
 										<p class="comment-reply">回复</p>
 									</div>
-									<!-- <div class="type-your-reply" contenteditable="true"  id="comment_input_box"></div>
+							<!-- 		 <div class="type-your-reply" contenteditable="true"  id="comment_input_box"></div>
 									<div class="comment-button" id="commit_submit">发表</div> -->
 								</div>
 							</div>
@@ -354,7 +357,40 @@
 					<p>(Tips： 初次登陆时请输入您的昵称与微信号绑定，昵称确认后就不能修改了哦。:) </p>
 				</div>
 				<!-- 回复秘密 -->
-					
+				<div class="REPLY_MESSAGE">
+						<div class="content-messager"> <!-- 评论内容框 -->
+							<div class="message-section message-default message-wrapper">
+								<div class="header-wrapper clearfix">
+									<div class="header-name">
+										<p class="name" >AndyCALL<span> : </span></p> 
+										<p class="time">2013-11-11</p>
+									</div>
+								</div>
+								<div class="main-message">
+									这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试
+								</div>
+								<div class="praise-comment clearfix">
+									<div class="praise">
+										<img src="image/hand_thumbsup.png">
+										<span class="click_praise" articleId="123" ispraied="0">赞</span> <!--  被评论者的articleId  123 -->
+									</div>
+								</div>
+								<div class="show-comment">
+									<span class="comment-statement"><i class="comment-count">4</i>人觉得很赞</span>
+								</div>
+								<div class="comment-box clearfix" articleId="1231231233">
+									<div class="comment-wrapper clearfix">  
+										<p>	
+											<span class="comment-user">DTC</span><span>：</span>这是测试，这是测试，这是测试，这是测试，这是测试
+										</p>
+										<p class="comment-reply">回复</p>
+									</div>
+							<!-- 		 <div class="type-your-reply" contenteditable="true"  id="comment_input_box"></div>
+									<div class="comment-button" id="commit_submit">发表</div> -->
+								</div>
+							</div>
+						</div>
+				</div>
 			</div>
 		</div>
 	</div>

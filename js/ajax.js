@@ -105,12 +105,12 @@ function timeGetText(url,timeout,callback){
 }
 
 function getReply(reply){ //ajax发送请求的回复
-    if(reply.name){ //if the reply object have name
-        var temp = name;
-        name = reply.name
-        reply.temp = temp;
-    }
-    reply.name = name;
+    // if(reply.name){ //if the reply object have name
+    //     var temp = name;
+    //     name = reply.name
+    //     reply.temp = temp;
+    // }
+    reply.SECRET = secret;
     self.postMessage(reply);
 }
 
@@ -121,8 +121,8 @@ function getReply(reply){ //ajax发送请求的回复
 function dealData(){
     return function(e){
         var type = e.data.type;
-        name = e.data.name;
-        delete e.data.name;
+        secret = e.data.SECRET;
+        delete e.data.SECRET;
         // throw JSON.stringify({data:type})
         if(typeof type !== "string") return false;
         switch(type){
