@@ -53,7 +53,18 @@ $a = array(
 );
 echo json_encode($a);
 
+详细页面发送框：
+
+发送内容:
+var data = {
+	user_openid : $$('userId').getAttribute('openid'), // 用户的openid
+	articleId : this.parentNode.children[1].getAttribute('articleId'), //该文章的id
+	commitContent: detail_comment_box.innerHTML  // 评论内容
+};
 
 
-因为项目赶工，后面的代码格式比较乱。。维护起来比较麻烦。。我也没办法。只欠技术水平不够高。
+返回一个state就行 1成功， 0 失败
+
+
+
 showSccret

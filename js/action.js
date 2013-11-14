@@ -586,6 +586,35 @@ function publishSecret(){
 	worker.addEventListener('message',afterSend(),false);
 }
 
+function detail_publish(){
+	var detail_commit_submit = $$('detail_commit_submit');
+	function sendDetail(){
+		return function(){
+			var detail_comment_box = $$('detail_comment_box');
+			var data = {
+				user_openid : $$('userId').getAttribute('openid'),
+				articleId : this.parentNode.children[1].getAttribute('articleId'),
+				commitContent: detail_comment_box.innerHTML
+			};
+			sendAjax(data,"POST",'detail');
+		}
+	}
+
+	function afterSend(){
+		return function(e){
+			if(e.data.SECRET == "detail"){
+				if(e.data.state == 1){
+					
+				}
+			}
+		}
+	}
+
+	// detail_commit_submit.addEventListener('click',,false);
+	worker.addEventListener('message',afterSend(),false);
+}
+
+
 
 
 // whenReady(addWrapper);
