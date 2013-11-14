@@ -33,17 +33,6 @@ var each = (function(arr){
 
 })();
 
-function getBroswer(){
-	var ua = navigator.userAgent.toLowerCase(),
-	_IE = ua.indexOf('msie') > -1 && ua.indexOf('opera') == -1,
-	_GECKO = ua.indexOf('gecko') > -1 && ua.indexOf('khtml') == -1,
-	_WEBKIT = ua.indexOf('applewebkit') > -1,
-	_OPERA = ua.indexOf('opera') > -1,
-	_MOBILE = ua.indexOf('mobile') > -1,
-	_IOS = /ipad|iphone|ipod/.test(ua);
-
-}
-
 var whenReady = (function(){
     var func = [];
     var ready = false;
@@ -194,7 +183,7 @@ function changeSlider(index,elem){
 	var slider = document.getElementsByClassName('slider')[0];
 	var sliderWidth = window.getComputedStyle(slider).width;
 	// console.log(sliderWidth);
-    slider.style.left = (parseInt(sliderWidth) * index)  + 'px';
+    slider.style.left = (parseInt(sliderWidth) * index)  + 'px';  
 }
 
 // 修改高度
@@ -373,9 +362,6 @@ function secWhichShow(target){
 }
 
 
-function checkIfLogin(){
-	return  $$('openid').getAttribute('openid') != "";
-}
 
 function addListenToButton(){
 	var secMain = getClass('sec-main')[0];
@@ -393,8 +379,19 @@ function addListenToButton(){
 
 	function click_swap(){
 		return function(){
-			if(checkIfLogin()){
-				divPos[3].style.display = 'none';
+			console.log($$('userId').getAttribute('openid'));
+			if($$('userId').getAttribute('openid') == ""){
+				for(var i = 0,len = divPos.length ; i < len ; i += 1 ){
+					divPos[i].style.display = "none";
+				}
+				divPos[3].style.display = 'block';
+				abc.setup();
+				setTimeout(function(){abc.next(),200});
+			}
+			else{
+				divPos[3].style.display = 'block';
+				abc.setup();
+				setTimeout(function(){abc.next(),200});
 			}
 		}
 	}
@@ -587,6 +584,7 @@ function publishSecret(){
 }
 
 function detail_publish(){
+	var page_detail = getClass('page_detail')[0];
 	var detail_commit_submit = $$('detail_commit_submit');
 	function sendDetail(){
 		return function(){
@@ -609,12 +607,50 @@ function detail_publish(){
 			}
 		}
 	}
-
+	page_detail.addEventListener('click',function(){
+		abc.setup();
+		setTimeout(function(){
+			abc.previous();
+		})
+	})
 	// detail_commit_submit.addEventListener('click',,false);
 	worker.addEventListener('message',afterSend(),false);
 }
 
 
+function refreshagain(){
+	var refresh_again = getClass('refresh_again')[0];
+	var wrapper = getClass('wrapper')[2];
+	function again(){
+		console.log('13');
+		return function(){
+			for(var i = 0, len = wrapper.childNodes.length;  i < len; i ++){
+				wrapper.removeChild(wrapper.firstChild);	
+			}
+			var data = {
+				state : "refresh"
+			};
+			sendAjax(data,"POST",'refresh');
+		}
+	}
+	function getReturnBack(){
+		return function(e){
+			if(e.data.SECRET == 'refresh'){
+				for(var i = 0,len = e.data.length; i < len; i += 1){
+					var contentMessager = document.createElement('div');
+					contentMessager.innerHTML = "<div class='content-messager'><div class='message-section message-default message-wrapper'><div class='header-wrapper clearfix'><div class='header-name'><p class='name' > " + e.data[i].name + "<span> : </span></p> <p class='time'> + " +  e.data[i].time + "</p></div></div><div class='main-message'>" + e.data[i].content + "</div><div class='praise-comment clearfix'><div class='comment'><img src='image/comment_add.png'><span class='click-comment' articleId='" + e.data[i].articleId + "'>评论</span><!--  被评论者的articleId  123 --></div><div class='praise'><img src='image/hand_thumbsup.png'><span class='click_praise' articleId='" + e.data[i].articleId + "'>赞</span> <!--  被评论者的articleId  123 --></div></div><div class='show-comment'><span class='comment-statement'><i class='comment-count'> " + e.data[i].praisedPerson + "</i>人觉得很赞</span></div></div></div>";
+					wrapper.appendChild(contentMessager);
+				}
+				var div = document.createElement('div');
+				div.innerHTML = "<p>再来一组</p>";
+				div.setAttribute('class','refresh_again');
+				wrapper.appendChild(div);
+			}
+		}
+	}
+	worker.addEventListener('message',getReturnBack(),false);
+	refresh_again.addEventListener('click',again(),false);
+}
 
 
 // whenReady(addWrapper);
@@ -628,6 +664,8 @@ whenReady(BackToMain);
 whenReady(addListenToButton);
 whenReady(CommitShow);
 whenReady(publishSecret);
+whenReady(detail_publish);
+whenReady(refreshagain);
 // whenReady(killSlider);
 
 

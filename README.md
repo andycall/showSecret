@@ -66,5 +66,32 @@ var data = {
 返回一个state就行 1成功， 0 失败
 
 
+试试手气刷新页面
+这好像没什么好发送的。。就发送一个信号吧。。
+var data = {
+	'state' :　'refresh'
+};
 
+...需要你返回一个大的json数组..
+
+首先是二位数组
+$content = array();
+
+
+$content[0] = array(
+	'name' => "ANDYCALL", //发布人姓名
+	'time' => "2013-11-11", // 发布时间
+	'content' => "asdlkajsdklasjdklasjd", //发布内容
+	"articleId" => "123", // 文章id
+	"praisedPerson" => "123" // 点赞人数
+);
+
+....
+
+
+就这样。。
+
+
+
+做完要把right 和left按钮删掉
 showSccret

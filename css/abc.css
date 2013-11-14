@@ -688,4 +688,17 @@ span{
 }
 .detail-commented-container p span {
 	margin-right: 0.4%;
-}	
+}
+.refresh_again{
+	width: 100%;
+	background-color: #3ac522;
+	border-radius: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.refresh_again p{
+	text-align:center;
+	color: #fff;
+	font-size: 19px;
+	font-family: "微软雅黑";
+}
