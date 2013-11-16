@@ -24,6 +24,10 @@ $a[1] = array(
 	"articleId" => "123",
 	"praisedPerson" => "123"
 	);
-echo json_encode($a);
+
+$b = array(
+	'state' => 1
+	);
+echo json_encode($b);
 
 

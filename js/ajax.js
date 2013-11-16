@@ -122,7 +122,7 @@ function dealData(){
     return function(e){
         var type = e.data.type;
         secret = e.data.SECRET;
-        delete e.data.SECRET;
+        // delete e.data.SECRET;
         // throw JSON.stringify({data:type})
         if(typeof type !== "string") return false;
         switch(type){

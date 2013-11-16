@@ -213,18 +213,17 @@ function findPraise(){
 	}
 }
 
+
 function getPrased(elem){  //点赞
 	return function(){
 		console.log(elem);
 		var articleId = elem.getAttribute('articleId');
 		var openid = getOpenId();
 		console.log(openid);
-		if(openid === ""){
-			firstLogin();
-		}
+		
 		var data = {
 			user_openid : openid,
-			sec_id: articleId
+			sec_id: articleId	
 		};
 		sendAjax(data,"POST","admire")
 			// console.log(elem);
@@ -376,12 +375,43 @@ function addListenToButton(){
 	for(var i = 0 , len = click_comment.length ; i < len; i += 1){
 			click_comment[i].addEventListener('click',click_swap(),false);
 	}
+	var name_submit = $$('name_submit');
+		name_submit.addEventListener('click',function(){
+			var user_names = $$('user_name').innerHTML;
+			var reg = /^[\u4e00-\u9fa5a-zA-Z0-9]+$/;
+			if(!reg.test(user_names)){
+				alert('输入只能为数字，字母和汉字');
+				$$('user_name').innerHTML = "";
+				return false;
+			}
+			var data = {
+				user_name : user_names
+			};
+			console.log('ajaxsended');
+			sendAjax(data,"POST","firstLogin");
+		},false);
+		function addopenid(){
+			return function(e){
+				if(e.data.SECRET == 'firstLogin'){
+					var openid = e.data.openid;
+					var dataName = e.data.dataName;
+					$$('userId').setAttribute('openid',openid);
+					$$('userId').setAttribute('data-name',dataName);
+					// writeCookie('openid',openid,365);
+					abc.ReturnBack();
+					setTimeout(function(){abc.kill()},250);
+				}		
+			}
+		}
+		worker.addEventListener('message',addopenid(),false);
+
 
 	function click_swap(){
 		return function(){
-			console.log($$('userId').getAttribute('openid'));
-			if($$('userId').getAttribute('openid') == ""){
+			// console.log($$('userId').getAttribute(''));
+			if($$('userId').getAttribute('data-name') == '#'){
 				for(var i = 0,len = divPos.length ; i < len ; i += 1 ){
+					console.log(divPos);
 					divPos[i].style.display = "none";
 				}
 				divPos[3].style.display = 'block';
@@ -390,25 +420,32 @@ function addListenToButton(){
 				window.scroll(0);
 			}
 			else{
-				divPos[3].style.display = 'block';
+				for(var i = 0,len = divPos.length ; i < len ; i += 1 ){
+					console.log(divPos);
+					divPos[i].style.display = "none";
+				}
+				console.log('123');
+				divPos[4].style.display = 'block';	
 				abc.setup();
 				setTimeout(function(){abc.next(),200});
 				window.scroll(0);
 			}
-
 		}
 	}
 
 	function checkWhichShow(){
 		return function(){
-			console.log(this);
+			console.log('2eq',this);
 			for(var i = 0,len = divPos.length ; i < len ; i += 1 ){
 				divPos[i].style.display = "none";
+				console.log(divPos[i]);
 			}
 
-			var loginInfo = readCookie('openid');
-			if(!loginInfo){
-				console.log(divPos);
+			// var loginInfo = readCookie('openid');
+			loginInfo = document.getElementById('userId').getAttribute('data-name');
+			console.log(!loginInfo);
+			if(loginInfo == '#'){
+				console.log('123123123213');
 				divPos[3].style.display = 'block';
 			}
 			else if(this.getAttribute('class') == 'message-button'){
@@ -425,6 +462,7 @@ function addListenToButton(){
 			}
 			abc.setup();
 			setTimeout(function(){abc.next(),200});
+			window.scroll(0);
 		}
 	}
 
@@ -454,7 +492,6 @@ function CommitShow(){
 				return function(e){
 					if(e.data.SECRET == 'commitShow'){
 						console.log('123');
-						var frage = document.createDocumentFragment();
 						var p = document.createElement('p');
 						var name = document.createElement('span');
 						name.style.marginLeft = '40px';
@@ -467,8 +504,7 @@ function CommitShow(){
 						p.appendChild(name);
 						p.appendChild(point);
 						p.appendChild(text);
-						frage.appendChild(p);
-						parent.appendChild(frage);
+						parent.appendChild(p);
 					}
 				}
 			}
@@ -508,35 +544,36 @@ function CommitShow(){
 }
 
 
-// 首次登陆
-function firstLogin(){
-	var nowId = readCookie('openid');
-	if(nowId){
-		$$('userId').setAttribute('openid',nowId);
-	}
-	else{
-		var name_submit = $$('name_submit');
-		name_submit.addEventListener('click',function(){
-			var user_names = $$('user_name').innerHTML;
-			var data = {
-				user_name : user_names
-			}
-			sendAjax(data,"POST","firstLogin");
-		},false);
-		function addopenid(){
-			return function(e){
-				if(e.data.SECRET == 'firstLogin'){
-					var openid = e.data.openid;
-					$$('userId').setAttribute('openid',openid);
-					writeCookie('openid',openid,365);
-					abc.ReturnBack();
-				setTimeout(function(){abc.kill()},250);
-				}		
-			}
-		}
-		worker.addEventListener('message',addopenid(),false);
-	}
-}
+// // 首次登陆
+// function firstLogin(){
+// 	var nowId = readCookie('openid');
+// 	if(nowId != "undefined"){
+// 		$$('userId').setAttribute('openid',nowId);
+// 	}
+// 	else{
+// 		var name_submit = $$('name_submit');
+// 		name_submit.addEventListener('click',function(){
+// 			var user_names = $$('user_name').innerHTML;
+// 			var data = {
+// 				user_name : user_names
+// 			};
+// 			console.log('ajaxsended');
+// 			sendAjax(data,"POST","firstLogin");
+// 		},false);
+// 		function addopenid(){
+// 			return function(e){
+// 				if(e.data.SECRET == 'firstLogin'){
+// 					var openid = e.data.openid;
+// 					$$('userId').setAttribute('openid',openid);
+// 					writeCookie('openid',openid,365);
+// 					abc.ReturnBack();
+// 					setTimeout(function(){abc.kill()},250);
+// 				}		
+// 			}
+// 		}
+// 		worker.addEventListener('message',addopenid(),false);
+// 	}
+// }  
 
 
 
@@ -555,25 +592,28 @@ function publishSecret(){
 				secret_conent : secretContent.innerHTML,
 				isNamed : isNamed.checked
 			};
-
 			sendAjax(data,"POST",'publish');
+			abc.ReturnBack();
+			setTimeout(function(){abc.kill()},250);
 		}
 	}
-	function afterSend(){
+	function afterSendss(){
 		return function(e){
 			console.log(e);
-			if(e.data.SECRET == 'publish'){
-				abc.ReturnBack();
-				setTimeout(function(){abc.kill()},250);
+			if(e.data.SECRET == 'publish'){	
 				if(e.data.state == '1'){
 					var userName = e.data.name;
 					var date = new Date();
 					var divWrapper = document.createElement('div');
-					divWrapper.setAttribute('class','message-section message-default message-wrapper');
+					divWrapper.classList.add('message-section');
+					divWrapper.classList.add('message-default');
+					divWrapper.classList.add('message-wrapper');
+					// divWrapper.setAttribute('class','message-section message-default message-wrapper');
 					divWrapper.innerHTML = "<div class='header-wrapper clearfix'><div class='header-name'><p class='name' >" + userName +"<span> : </span></p><p class='time'>" + date.getFullYear() + '-' + date.getMonth() +'-' + date.getDate() + "</p></div></div><div class='main-message'>这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试</div><div class='praise-comment clearfix'><div class='comment'><img src='image/comment_add.png'><span class='click-comment' articleId='123'>评论</span><!--  被评论者的articleId  123 --></div><div class='praise'><img src='image/hand_thumbsup.png'><span class='click_praise' articleId='123' ispraied='0'>赞</span> <!--  被评论者的articleId  123 --></div></div><div class='show-comment'><span class='comment-statement'><i class='comment-count'>4</i>人觉得很赞</span></div>";
 					console.log(getClass('wrapper')[1]);
 					console.log(divWrapper);
-					getClass('wrapper')[1].children[0].insertBefore(divWrapper);
+					console.log("divWrapper",divWrapper);
+					getClass('wrapper')[1].children[0].insertBefore(divWrapper,getClass('wrapper')[1].children[0].children[0]);
 					// changeHeight(1,getClass('wrapper')[1]);
 				}
 			}
@@ -583,20 +623,68 @@ function publishSecret(){
 		}
 	}
 	Secret_publish.addEventListener('click',sendSecret(),false);
-	worker.addEventListener('message',afterSend(),false);
+	worker.addEventListener('message',afterSendss(),false);
 }
 
 function detail_publish(){
-	var page_detail = getClass('page_detail')[0];
+	var detail_comment_box  = $$('detail_comment-box');
+	var contentMessager = getClass('content-messager');
+	var data_name = $$('userId').getAttribute('data-name');
+	var detail_commented_container = getClass('detail-commented-container')[0];
+	for(var i =0 ; i < contentMessager.length; i += 1){
+		contentMessager[i].addEventListener('click',sendDetail(),false);
+	}
 	var detail_commit_submit = $$('detail_commit_submit');
+	detail_commit_submit.addEventListener('click',sendComment(),false);
+
 	function sendDetail(){
-		return function(){
-			var detail_comment_box = $$('detail_comment_box');
+		return function(e){
+			console.log(e);
+			if(e.target.getAttribute('class') == "praise-comment clearfix" || e.target.getAttribute('class') == "header-wrapper clearfix" || e.target.getAttribute('class') == "show-comment" || e.target.getAttribute('class') == "message-section message-default message-wrapper" ||e.target.getAttribute('class')== "comment-statement" || e.target.getAttribute('class') == 'time' ||e.target.getAttribute('class') == "main-message" || e.target.getAttribute('class') == "name"){
+				var name = this.getElementsByClassName('name')[0].innerHTML;
+				var time = this.getElementsByClassName('time')[0].innerHTML;
+				var mainContent = this.getElementsByClassName('main-message')[0].innerHTML;
+				var commentCoutn = this.getElementsByClassName('comment-count')[0].innerHTML;
+				var articleId = this.getElementsByClassName('click_praise')[0].getAttribute('articleId');
+				var ispraied  = this.getElementsByClassName('click_praise')[0].getAttribute('ispraied');
+				var comments = this.children[0].getElementsByTagName('p');
+				
+				// var wrapper = document.createElement('div');
+				// wrapper.setAttribute('class','content-messager');
+				var wrapper = document.createElement('div');	
+				wrapper.setAttribute('data-click','1');
+				var detail_content = getClass('detail_content')[0];
+				if(detail_content.children[0].getAttribute('data-click') == 1){
+					detail_content.removeChild(detail_content.children[0]);
+				}
+				wrapper.innerHTML = "<div class='header-wrapper clearfix'><div class='header-name'><p class='name' >"+ name + "<span> : </span></p> <p class='time'> " + time + "</p></div></div><div class='main-message'>" + mainContent + "这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试，这是测试</div><div class='praise-comment clearfix'><div class='praise'><img src='image/hand_thumbsup.png'><span class='click_praise' articleId='" + articleId + "' ispraied='"+ ispraied  +"'>赞</span> <!--  被评论者的articleId  123 --></div><!-- 孟睿玲 --></div><div class='show-comment'><span class='comment-statement'><i class='comment-count'>" + commentCoutn +"</i>人觉得很赞</span>";
+				detail_content.insertBefore(wrapper,detail_content.firstChild);
+				detail_commented_container.innerHTML = "";
+				for(var i = 0,len = comments.length; i < len; i++){
+					detail_commented_container.appendChild(comments[i]);
+				}
+				abc.setup();
+				setTimeout(function(){abc.previous();},200);
+				window.scroll(0);
+			}
+		// // var detail_comment_box = $$('detail_comment_box');
+			// var data = {
+			// 	user_openid : $$('userId').getAttribute('openid'),
+			// 	articleId : this.parentNode.children[1].getAttribute('articleId'),
+			// 	commitContent: dataetail_comment_box.innerHTML
+			// };
+			// sendAjax(data,"POST",'detail');
+		}
+	}
+
+	function sendComment(){
+		return function(e){
 			var data = {
 				user_openid : $$('userId').getAttribute('openid'),
-				articleId : this.parentNode.children[1].getAttribute('articleId'),
+				articleId : this.parentNode.parentNode.children[0].getElementsByClassName('click_praise')[0].getAttribute('articleId'),
 				commitContent: detail_comment_box.innerHTML
 			};
+			console.log(data);
 			sendAjax(data,"POST",'detail');
 		}
 	}
@@ -605,18 +693,35 @@ function detail_publish(){
 		return function(e){
 			if(e.data.SECRET == "detail"){
 				if(e.data.state == 1){
-					
+					var frag = document.createDocumentFragment();
+					var p = document.createElement('p');
+					var name = document.createElement('span');
+					name.innerHTML = data_name;
+					var port = document.createElement('span');
+					port.innerHTML = "：";
+					var content = document.createElement('span');
+					content.innerHTML = $$('detail_comment-box').innerHTML;
+					p.appendChild(name);
+					p.appendChild(port);
+					p.appendChild(content);
+					frag.appendChild(p);
+					console.log(frag);
+					detail_commented_container.appendChild(frag);
+					while(frag.firstChild){
+						frag.remove(frag.firstChild);
+					}
+					$$('detail_comment-box').innerHTML = "";
 				}
 			}
 		}
 	}
-	page_detail.addEventListener('click',function(){
-		abc.setup();
-		setTimeout(function(){
-			abc.previous();
-		})
-	})
-	// detail_commit_submit.addEventListener('click',,false);
+	// page_detail.addEventListener('click',function(){
+	// 	abc.setup();
+	// 	setTimeout(function(){
+	// 		abc.previous();
+	// 	})
+	// })
+	// // detail_commit_submit.addEventListener('click',,false);
 	worker.addEventListener('message',afterSend(),false);
 }
 
@@ -657,7 +762,7 @@ function refreshagain(){
 
 
 // whenReady(addWrapper);
-whenReady(firstLogin);
+// whenReady(firstLogin);
 whenReady(clearAllsection);
 whenReady(findPraise);
 whenReady(addListenToContent);
