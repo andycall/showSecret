@@ -73,6 +73,7 @@ function sectionSlider(container){
 		}
 		if(index == 1){
 			slide.style.right = 2 * bodyWidth +'px';
+			window.scroll(0);
 		}
 			// ....
 	}
@@ -83,6 +84,7 @@ function sectionSlider(container){
 		}
 		if(index == 1){
 			slide.style.right = 0;
+			window.scroll(0);
 		}
 	}
 
@@ -90,6 +92,7 @@ function sectionSlider(container){
 		if(!(slide.getAttribute('class') == 'animate')){
 			addClass(slide,'animate');
 		}
+		window.scroll(0);
 		slide.style.right = bodyWidth + 'px';
 	}
 

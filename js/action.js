@@ -387,12 +387,15 @@ function addListenToButton(){
 				divPos[3].style.display = 'block';
 				abc.setup();
 				setTimeout(function(){abc.next(),200});
+				window.scroll(0);
 			}
 			else{
 				divPos[3].style.display = 'block';
 				abc.setup();
 				setTimeout(function(){abc.next(),200});
+				window.scroll(0);
 			}
+
 		}
 	}
 
